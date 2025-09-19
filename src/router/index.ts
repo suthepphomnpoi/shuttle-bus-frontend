@@ -4,6 +4,7 @@ import Details from "../views/Details.vue";
 import Success from "../views/Success.vue";
 import Cancel from "../views/Cancel.vue";
 import Confirm from "../views/Confirm.vue";
+import Usermangemant from "../views/Usermangemant.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/confirm",
     name: "confirm",
     component: Confirm,
+  },
+  {
+    path: "/Usermangemant",
+    name: "Usermangemant",
+    component: Usermangemant,
   },
 ];
 
