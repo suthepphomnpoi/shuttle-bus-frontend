@@ -1,0 +1,18 @@
+.font-ubuntu {
+  font-family: "Ubuntu", sans-serif !important;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif !important;
+}
+
+.btn-receive {
+  background-color: #45d07c !important;
+  border-color: #45d07c !important;
+  color: #fff !important;
+}
+
+.btn-receive:hover {
+  background-color: #3cb971 !important;
+  border-color: #3cb971 !important;
+}
