@@ -1,0 +1,57 @@
+<template>
+    <div class="container-fluid min-vh-100 d-flex align-items-center">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+           
+                <div class="col-12 col-lg-6 text-center">
+                    <img src="../assets/images/login_bus.png" class="img-fluid" alt="Bus illustration" />
+                </div>
+
+                <div class="col-12 col-lg-6 d-flex justify-content-center mb-5">
+                    <div class="w-100" style="max-width: 520px;">
+                        <div class="mb-2">
+                            <h2 class="fw-semibold mb-1">ยินดีตอนรับ <span aria-hidden="true">👋</span></h2>
+                            <small class="text-secondary">เข้าสู่ระบบเพื่อใช้งาน</small>
+                        </div>
+
+                        <form @submit.prevent="onSubmit" class="mt-3">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">อีเมล</label>
+                                <input id="email" type="email" class="form-control" 
+                                    v-model.trim="email" required />
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="password" class="form-label">รหัสผ่าน</label>
+                                <input id="password" :type="showPassword ? 'text' : 'password'" class="form-control"
+                                    v-model="password" required minlength="6" />
+                            </div>
+
+                            <button class="btn btn-dark w-100" type="submit" :disabled="isSubmitting">
+                                <span v-if="!isSubmitting">เข้าสู่ระบบ</span>
+                                <span v-else class="spinner-border spinner-border-sm" role="status"
+                                    aria-hidden="true"></span>
+                                <span v-if="isSubmitting" class="ms-2">กำลังดำเนินการ...</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const email = ref('')
+const password = ref('')
+const showPassword = ref(false)
+const isSubmitting = ref(false)
+
+const onSubmit = async () => {
+
+}
+</script>
+

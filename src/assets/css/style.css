@@ -1,0 +1,15 @@
+body {
+  font-family: "Noto Sans Thai", sans-serif;
+}
+
+
+.form-control:focus,
+.form-control:active,
+.form-select:focus,
+.form-select:active,
+.form-check-input:focus,
+.form-check-input:active {
+  border-color: var(--bs-primary) !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
