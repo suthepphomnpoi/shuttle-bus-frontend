@@ -1,9 +1,16 @@
 <template>
-    <!-- แถบนำทางด้านบน พร้อมลูกศรย้อนกลับแบบ CSS -->
-    <div class="breadcrumb-bar">
-        <div class="back-arrow" @click="$router.back()"></div>
-        <span class="breadcrumb-text">โฮม > รายละเอียดงาน</span>
-    </div>
+    <!-- Breadcrumb: Bootstrap -->
+    <nav class="bg-light" aria-label="breadcrumb">
+        <div class="container py-2 d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.back()">
+                ←
+            </button>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="#/">โฮม</a></li>
+                <li class="breadcrumb-item active" aria-current="page">รายละเอียดงาน</li>
+            </ol>
+        </div>
+    </nav>
 
 
     <div class="container mt-3">
@@ -38,7 +45,7 @@
                             <span class="arrow left"></span>
                         </button>
 
-                        <button class="btn btn-dark px-5 py-2" @click="$router.push('/details')">ยืนยันจบงาน</button>
+                        <button class="btn btn-dark px-5 py-2" @click="$router.push('/drivers/details')">ยืนยันจบงาน</button>
 
                         <button class="arrow-btn right-btn">
                             <span class="arrow right"></span>
@@ -199,31 +206,6 @@
     color: #555;
 }
 
-
-.breadcrumb-bar {
-    background-color: #DCDCDC;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* สร้างไอคอนลูกศรย้อนกลับด้วย CSS */
-.back-arrow {
-    width: 20px;
-    height: 20px;
-    border-left: 2px solid #333;
-    border-bottom: 2px solid #333;
-    transform: rotate(45deg);
-    margin-right: 12px;
-    cursor: pointer;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.breadcrumb-text {
-    color: #333;
-    font-weight: 500;
-}
 
 .arrow-btn {
     width: 50px;

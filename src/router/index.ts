@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import Details from "../views/Details.vue";
-import Success from "../views/Success.vue";
-import Cancel from "../views/Cancel.vue";
-import Confirm from "../views/Confirm.vue";
-import Usermanagemant from "../views/backoffice/Usermanagemant.vue";
+import Detail from "../views/Driver/Detail.vue";
+import Success from "../views/Driver/Success.vue";
+import Cancel from "../views/Driver/Cancel.vue";
+import Confirm from "../views/Driver/Confirm.vue";
+import UserManagement from "../views/BackOffice/UserManagement.vue";
 
 const routes = [
   {
@@ -13,29 +13,29 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/details",
+    path: "/drivers/details",
     name: "details",
-    component: Details,
+    component: Detail,
   },
   {
-    path: "/success",
+    path: "/drivers/success",
     name: "success",
     component: Success,
   },
   {
-    path: "/cancel",
+    path: "/drivers/cancel",
     name: "cancel",
     component: Cancel,
   },
   {
-    path: "/confirm",
+    path: "/drivers/confirm",
     name: "confirm",
     component: Confirm,
   },
   {
-    path: "/Usermanagemant",
-    name: "Usermanagemant",
-    component: Usermanagemant,
+    path: "/admin/user-managements",
+    name: "user-managements",
+    component: UserManagement,
   },
 ];
 
