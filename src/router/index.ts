@@ -4,6 +4,7 @@ import Detail from "../views/Driver/Detail.vue";
 import Success from "../views/Driver/Success.vue";
 import Cancel from "../views/Driver/Cancel.vue";
 import Confirm from "../views/Driver/Confirm.vue";
+import Jobboard from "../views/Driver/JobBoard.vue";
 import UserManagement from "../views/BackOffice/UserManagement.vue";
 
 const routes = [
@@ -31,6 +32,11 @@ const routes = [
     path: "/drivers/confirm",
     name: "confirm",
     component: Confirm,
+  },
+  {
+    path: "/drivers/jobboard",
+    name: "jobboard",
+    component: Jobboard,
   },
   {
     path: "/admin/user-managements",

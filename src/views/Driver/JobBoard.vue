@@ -1,4 +1,5 @@
 <template>
+
     <div class="container mt-4 font-ubuntu">
         <h2 class="text-center fw-bold mt-4">ตารางงานคนขับ</h2>
         <div class="schedule-list border rounded p-3 bg-white">
@@ -28,9 +29,17 @@
                         <div class="fs-6">{{ item.time }}</div>
                     </div>
                     <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end mt-2 mt-md-0">
-                        <button class="btn btn-receive me-2 px-4" @click="$router.push('/drivers/details')">รับงาน</button>
+                        <button class="btn btn-receive me-2 px-4" @click="item.received = true" v-if="!item.received">
+                            รับงาน
+                        </button>
 
-                        <button class="btn btn-danger px-4">ยกเลิก</button>
+                        <button class="btn btn-outline-primary me-2 px-4" @click="$router.push('/drivers/details')"
+                            v-else>
+                            รายละเอียด
+                        </button>
+
+
+
                     </div>
                 </div>
             </div>
@@ -39,7 +48,8 @@
 </template>
 
 <script setup>
-const schedules = [
+import { ref } from 'vue'
+const schedules = ref([
     {
         route: "มหาวิทยาลัยเทคโนโลยีมหานคร ➔ มหาวิทยาลัยเทคโนโลยีมหานคร",
         path: "โลตัสหนองจอก > โรงพยาบาลสนามของจอก > Big C ของจอก > โรงพยาบาลสนามของจอก > ไส้ผสมของจอก",
@@ -47,6 +57,7 @@ const schedules = [
         license: "สย 2591",
         passenger: "9 คน",
         time: "dd/mm/yyyy เวลา 09:30",
+        received: false // เพิ่มสถานะรับงาน
     },
     {
         route: "มหาวิทยาลัยเทคโนโลยีมหานคร ➔ มหาวิทยาลัยเทคโนโลยีมหานคร",
@@ -55,8 +66,10 @@ const schedules = [
         license: "สย 2591",
         passenger: "9 คน",
         time: "dd/mm/yyyy เวลา 09:30",
+        received: false
     },
-];
+])
+
 </script>
 
 <style scoped>
@@ -72,5 +85,20 @@ const schedules = [
 
 .font-ubuntu {
     font-family: "Ubuntu", sans-serif !important;
+}
+
+body {
+    font-family: "Ubuntu", sans-serif !important;
+}
+
+.btn-receive {
+    background-color: #45d07c !important;
+    border-color: #45d07c !important;
+    color: #fff !important;
+}
+
+.btn-receive:hover {
+    background-color: #3cb971 !important;
+    border-color: #3cb971 !important;
 }
 </style>
