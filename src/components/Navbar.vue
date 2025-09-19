@@ -11,14 +11,17 @@
         <img :src="logo" alt="Bus Logo" width="40" height="40" />
       </router-link>
       <div class="d-flex align-items-center">
-        <span class="me-3 text-muted">Hi! Jetsada</span>
-        <img
-          src="https://i.pravatar.cc/32?u=jetsada"
-          alt="User Avatar"
-          class="rounded-circle"
-          width="32"
-          height="32"
-        />
+          <span class="me-3 text-muted">Hi! Jetsada</span>
+          <img
+            src="https://i.pravatar.cc/32?u=jetsada"
+            alt="User Avatar"
+            class="rounded-circle"
+            width="32"
+            height="32"
+          />
+          <router-link to="/usermanagemant">
+            <button class="btn btn-primary ms-3">User Management</button>
+          </router-link>
       </div>
     </div>
     <hr class="m-0" />
