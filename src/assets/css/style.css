@@ -2,6 +2,10 @@ body {
   font-family: "Noto Sans Thai", sans-serif !important;
 }
 
+.Vue-Toastification__toast {
+  font-family: "Noto Sans Thai", sans-serif !important;
+}
+
 .form-control:focus,
 .form-control:active,
 .form-select:focus,

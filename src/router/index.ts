@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import Detail from "../views/Driver/Detail.vue";
 import Success from "../views/Driver/Success.vue";
 import Cancel from "../views/Driver/Cancel.vue";
@@ -10,12 +9,19 @@ import VehicleTypes from "../views/BackOffice/VehicleTypes.vue";
 import EmployeeManage from "../views/BackOffice/EmployeeManage.vue";
 import BustripManage from "../views/BackOffice/BustripManage.vue";
 import LineWay from "../views/BackOffice/LineWay.vue";
+import Login from "../views/UserAuth/Login.vue";
+import SearchTrip from "../views/Reserve/SearchTrip.vue";
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "search-trip",
+    component: SearchTrip,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
   },
   {
     path: "/drivers/details",
@@ -52,7 +58,7 @@ const routes = [
     name: "VehicleTypes",
     component: VehicleTypes,
   },
-    {
+  {
     path: "/admin/EmployeeManage",
     name: "EmployeeManage",
     component: EmployeeManage,
@@ -63,10 +69,10 @@ const routes = [
     component: BustripManage,
   },
   {
-  path: "/admin/lineway",
-  name: "LineWay",
-  component: LineWay,
-}
+    path: "/admin/lineway",
+    name: "LineWay",
+    component: LineWay,
+  },
 ];
 
 const router = createRouter({
