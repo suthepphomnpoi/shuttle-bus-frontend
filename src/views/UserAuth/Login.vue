@@ -14,8 +14,6 @@
                             <small class="text-secondary">เข้าสู่ระบบเพื่อใช้งาน</small>
                         </div>
 
-                        <div v-if="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
-                        <div v-if="successMessage" class="alert alert-success" role="alert">{{ successMessage }}</div>
 
                         <form @submit.prevent="onSubmit" class="mt-3">
                             <div class="mb-3">
@@ -48,14 +46,14 @@
 import { ref } from 'vue'
 import { http } from '../../lib/http'
 import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
 
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
 const isSubmitting = ref(false)
 const router = useRouter()
-const errorMessage = ref('')
-const successMessage = ref('')
+const toast = useToast()
 
 const onSubmit = async () => {
     isSubmitting.value = true
@@ -67,11 +65,11 @@ const onSubmit = async () => {
             password: password.value
         })
 
-        successMessage.value = res?.data?.message || 'เข้าสู่ระบบสำเร็จ'
+        toast.success(res?.data?.message || 'เข้าสู่ระบบสำเร็จ')
         router.push('/')
     } catch (err) {
         const msg = err?.response?.data?.message || 'ไม่สามารถเข้าสู่ระบบได้ กรุณาลองใหม่อีกครั้ง'
-        errorMessage.value = msg
+        toast.error(msg)
     } finally {
         isSubmitting.value = false
     }
