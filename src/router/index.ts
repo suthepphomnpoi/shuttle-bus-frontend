@@ -13,6 +13,7 @@ import Login from "../views/UserAuth/Login.vue";
 import SearchTrip from "../views/Reserve/SearchTrip.vue";
 import TripManage from "../views/BackOffice/TripManage.vue";
 import DepartmentManage from "../views/BackOffice/DepartmentManage.vue";
+import Assignment from "../views/BackOffice/Assignment.vue";
 
 
 const routes = [
@@ -76,15 +77,25 @@ const routes = [
     name: "LineWay",
     component: LineWay,
   },
-    {
+  {
     path: "/admin/trip-manage",
     name: "trip-manage",
     component: TripManage,
   },
-      {
+  {
     path: "/admin/department-manage",
     name: "department-manage",
     component: DepartmentManage,
+  },
+  {
+    path: "/admin/assignment",
+    name: "assignment",
+    component: Assignment,
+  },
+    {
+    path: "/admin/permission-management",
+    name: "permission-management",
+    component: Permissions,
   },
 ];
 

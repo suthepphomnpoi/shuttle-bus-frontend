@@ -61,10 +61,16 @@
                 <RouterLink class="dropdown-item" to="/admin/BusTripManage">BusTripManage</RouterLink>
               </li>
               <li>
-                <RouterLink class="dropdown-item" to="/admin/trip-manage">tripmanage</RouterLink>
+                <RouterLink class="dropdown-item" to="/admin/trip-manage">Tripmanage</RouterLink>
               </li>
               <li>
-                <RouterLink class="dropdown-item" to="/admin/department-manage">department</RouterLink>
+                <RouterLink class="dropdown-item" to="/admin/department-manage">Department</RouterLink>
+              </li>
+              <li>
+                <RouterLink class="dropdown-item" to="/admin/Assignment">Assignment</RouterLink>
+              </li>
+              <li>
+                <RouterLink class="dropdown-item" to="/admin/permission-management">Permission</RouterLink>
               </li>
             </ul>
           </li>
