@@ -1,10 +1,8 @@
 <template>
-    <!-- Breadcrumb: Bootstrap -->
+    <!-- Breadcrumb -->
     <nav class="bg-light" aria-label="breadcrumb">
         <div class="container py-2 d-flex align-items-center gap-2">
-            <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.back()">
-                ←
-            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.back()">←</button>
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="#/">โฮม</a></li>
                 <li class="breadcrumb-item active" aria-current="page">รายละเอียดงาน</li>
@@ -13,19 +11,16 @@
     </nav>
 
     <div class="container mt-3">
-        <!-- แถวบน -->
         <div class="row g-3">
             <!-- กล่องรายละเอียดงาน -->
             <div class="col-md-6">
                 <div class="card p-3">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <span class="badge bg-danger px-3 py-2">สาย 1</span>
-                        <!-- ปุ่มสแกน QR Code -->
                         <button class="btn btn-outline-primary btn-sm" @click="showScanner = true">สแกน QR Code</button>
                     </div>
-                    <h5 class="fw-bold">
-                        เวลาออกรถ <span class="text-dark">9:30 น.</span>
-                    </h5>
+
+                    <h5 class="fw-bold">เวลาออกรถ <span class="text-dark">9:30 น.</span></h5>
                     <hr />
                     <div class="mt-2">
                         <p class="mb-1">เส้นทาง</p>
@@ -41,8 +36,7 @@
                             <span class="arrow left"></span>
                         </button>
 
-                        <button class="btn btn-dark px-5 py-2"
-                            @click="() => { modalType = 'report'; showModal = true }">ยืนยันจบงาน</button>
+                        <button class="btn btn-dark px-5 py-2" @click="openReportModal">ยืนยันจบงาน</button>
 
                         <button class="arrow-btn right-btn" @click="$router.push('/drivers/cancel')">
                             <span class="arrow right"></span>
@@ -55,42 +49,36 @@
             <div class="col-md-6 d-flex">
                 <div class="card p-3 h-100 w-100">
                     <ul class="timeline">
-                        <li class="active">
-                            <span class="dot"></span>
-                            <span class="fw-bold">มหาวิทยาลัยเทคโนโลยีมหานคร</span>
-                        </li>
+                        <li class="active"><span class="dot"></span><span
+                                class="fw-bold">มหาวิทยาลัยเทคโนโลยีมหานคร</span></li>
                         <li><span class="dot"></span> โลตัสหนองจอก</li>
                         <li><span class="dot"></span> โรงพยาบาลหนองจอก</li>
                         <li><span class="dot"></span> Big C หนองจอก</li>
                         <li><span class="dot"></span> โรงพยาบาลหนองจอก</li>
                         <li><span class="dot"></span> โลตัสหนองจอก</li>
-                        <li class="active">
-                            <span class="dot"></span>
-                            <span class="fw-bold">มหาวิทยาลัยเทคโนโลยีมหานคร</span>
-                        </li>
+                        <li class="active"><span class="dot"></span><span
+                                class="fw-bold">มหาวิทยาลัยเทคโนโลยีมหานคร</span></li>
                     </ul>
                 </div>
             </div>
-        </div> <!-- ปิด row แถวบน -->
+        </div>
 
         <!-- กล่องสถานะผู้โดยสาร -->
-        <div class="card mt-3 p-3 ">
+        <div class="card mt-3 p-3">
             <h6 class="fw-bold">ผู้โดยสารทั้งหมด 9 คน</h6>
             <div class="row text-center mt-2">
                 <div class="col-md-4">
-                    <div class="status-box success" @click="() => { modalType = 'boarded'; showModal = true }">
-                        <div class="status-header fw-bold">ขึ้นแล้ว</div>
-                        <div class="status-number fw-bold fs-1">5</div>
+                    <div class="status-box success" @click="openPassengerModal('boarded')">
+                        <div class="fw-bold">ขึ้นแล้ว</div>
+                        <div class="fw-bold fs-1">5</div>
                     </div>
                 </div>
-
                 <div class="col-md-4">
-                    <div class="status-box danger" @click="() => { modalType = 'notBoarded'; showModal = true }">
+                    <div class="status-box danger" @click="openPassengerModal('notBoarded')">
                         <div class="fw-bold">ยังไม่ขึ้น</div>
                         <div class="fw-bold fs-1">3</div>
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <div class="status-box neutral">
                         <div class="fw-bold">ว่าง</div>
@@ -103,30 +91,22 @@
 
     <!-- Popup Scanner -->
     <div v-if="showScanner" class="modal fade show d-block" tabindex="-1">
-        <!-- backdrop -->
         <div class="modal-backdrop fade show" @click="showScanner = false"></div>
-
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-3 text-center">
                 <h5 class="mb-2">สแกน QR Code</h5>
-
-                <!-- กล้องสแกน -->
                 <qrcode-stream @decode="onDecode" @init="onInit" />
-
                 <p v-if="error" class="text-danger mt-2">{{ error }}</p>
                 <p v-if="decoded" class="mt-2 text-success">ผลลัพธ์: {{ decoded }}</p>
-
-                <button class="btn btn-danger mt-3 px-5" @click="showScanner = false">
-                    ปิด
-                </button>
+                <button class="btn btn-danger mt-3 px-5" @click="showScanner = false">ปิด</button>
             </div>
         </div>
     </div>
 
-    <!-- ป๊อปอัพ -->
+    <!-- Popup Modal -->
     <div v-if="showModal" class="custom-modal">
         <div class="custom-modal-content">
-            <!-- Modal สำหรับรายงาน -->
+            <!-- Modal Report -->
             <div v-if="modalType === 'report'">
                 <h5 class="fw-bold mb-3">รายงานสรุปการเดินทาง</h5>
                 <div class="report-content text-start">
@@ -142,11 +122,9 @@
                 </div>
             </div>
 
-            <!-- Modal สำหรับรายชื่อผู้โดยสาร -->
+            <!-- Modal Passenger -->
             <div v-else>
-                <h5 class="fw-bold mb-3">
-                    {{ modalType === 'boarded' ? 'ขึ้นแล้ว' : 'ยังไม่ขึ้น' }}
-                </h5>
+                <h5 class="fw-bold mb-3">{{ modalType === 'boarded' ? 'ขึ้นแล้ว' : 'ยังไม่ขึ้น' }}</h5>
                 <ul class="passenger-list">
                     <li v-for="(p, index) in modalType === 'boarded' ? boardedPassengers : notBoardedPassengers"
                         :key="index">
@@ -170,23 +148,6 @@ const error = ref("");
 const showModal = ref(false);
 const modalType = ref("");
 
-function onDecode(result) {
-    decoded.value = result;
-    showScanner.value = false; // ปิด popup หลังสแกน
-}
-
-function onInit(promise) {
-    promise.catch(err => {
-        if (err.name === "NotAllowedError") {
-            error.value = "❌ ไม่ได้รับสิทธิ์การเข้าถึงกล้อง";
-        } else if (err.name === "NotFoundError") {
-            error.value = "❌ ไม่มีกล้อง";
-        } else {
-            error.value = "เกิดข้อผิดพลาด: " + err.message;
-        }
-    });
-}
-
 const report = {
     route: "มหาวิทยาลัยเทคโนโลยีมหานคร ➝ มหาวิทยาลัยเทคโนโลยีมหานคร",
     time: "9:30 น. - 17:30 น.",
@@ -200,19 +161,38 @@ const boardedPassengers = [
     "นาย ข ขึ้นแล้ว",
     "นาย ค ขึ้นแล้ว",
     "นาย ง ขึ้นแล้ว",
-    "นาย จ ขึ้นแล้ว"
+    "นาย จ ขึ้นแล้ว",
 ];
 
-const notBoardedPassengers = [
-    "นาย ฉ ยังไม่ขึ้น",
-    "นาย ช ยังไม่ขึ้น",
-    "นาย ซ ยังไม่ขึ้น"
-];
+const notBoardedPassengers = ["นาย ฉ ยังไม่ขึ้น", "นาย ช ยังไม่ขึ้น", "นาย ซ ยังไม่ขึ้น"];
 
-const confirmReport = () => {
-    alert('รายงานถูกส่งเรียบร้อยแล้ว!');
+function onDecode(result) {
+    decoded.value = result;
+    showScanner.value = false;
+}
+
+function onInit(promise) {
+    promise.catch((err) => {
+        if (err.name === "NotAllowedError") error.value = "❌ ไม่ได้รับสิทธิ์การเข้าถึงกล้อง";
+        else if (err.name === "NotFoundError") error.value = "❌ ไม่มีกล้อง";
+        else error.value = "เกิดข้อผิดพลาด: " + err.message;
+    });
+}
+
+function openReportModal() {
+    modalType.value = "report";
+    showModal.value = true;
+}
+
+function openPassengerModal(type) {
+    modalType.value = type;
+    showModal.value = true;
+}
+
+function confirmReport() {
+    alert("รายงานถูกส่งเรียบร้อยแล้ว!");
     showModal.value = false;
-};
+}
 </script>
 
 <style scoped>
@@ -223,9 +203,10 @@ const confirmReport = () => {
     height: 100%;
 }
 
+/* Timeline */
 .timeline {
     list-style: none;
-    padding-left: 0px;
+    padding: 0;
     margin: 0;
     position: relative;
 }
@@ -257,7 +238,6 @@ const confirmReport = () => {
     height: 16px;
     border-radius: 50%;
     background: #ccc;
-    z-index: 1;
 }
 
 .timeline li.active .dot {
@@ -271,12 +251,13 @@ const confirmReport = () => {
     color: #000;
 }
 
+/* Status box */
 .status-box {
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 300px;
     padding: 50px;
-    margin: 20px;
+    margin: 20px auto;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -284,19 +265,6 @@ const confirmReport = () => {
 .status-box:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.status-header {
-    text-align: center;
-    margin-bottom: 0px;
-}
-
-.status-number {
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .status-box.success {
@@ -314,30 +282,7 @@ const confirmReport = () => {
     color: #555;
 }
 
-.breadcrumb-bar {
-    background-color: #DCDCDC;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.back-arrow {
-    width: 20px;
-    height: 20px;
-    border-left: 2px solid #333;
-    border-bottom: 2px solid #333;
-    transform: rotate(45deg);
-    margin-right: 12px;
-    cursor: pointer;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.breadcrumb-text {
-    color: #333;
-    font-weight: 500;
-}
-
+/* Arrow buttons */
 .arrow-btn {
     width: 50px;
     height: 45px;
@@ -347,7 +292,6 @@ const confirmReport = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -361,12 +305,10 @@ const confirmReport = () => {
 
 .arrow.left {
     transform: rotate(-135deg);
-    margin-left: 3px;
 }
 
 .arrow.right {
     transform: rotate(45deg);
-    margin-right: 3px;
 }
 
 .arrow-group {
@@ -383,13 +325,10 @@ const confirmReport = () => {
     margin-left: 60px;
 }
 
-/* ป๊อปอัพกลางจอ */
+/* Custom Modal */
 .custom-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
@@ -428,21 +367,5 @@ const confirmReport = () => {
 
 .passenger-list li:last-child {
     border-bottom: none;
-}
-
-/* QR Scanner Modal */
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1040;
-}
-
-.modal-content {
-    border-radius: 12px;
-    z-index: 1050;
 }
 </style>

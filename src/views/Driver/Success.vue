@@ -1,5 +1,5 @@
 <template>
-    <!-- Breadcrumb: Bootstrap -->
+    <!-- Breadcrumb -->
     <nav class="bg-light" aria-label="breadcrumb">
         <div class="container py-2 d-flex align-items-center gap-2">
             <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.back()">←</button>
@@ -18,13 +18,10 @@
                 <div class="card p-3">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <span class="badge bg-danger px-3 py-2">สาย 1</span>
-                        <button class="btn btn-outline-primary btn-sm" @click="showScanner = true">
-                            สแกน QR Code
-                        </button>
+                        <button class="btn btn-outline-primary btn-sm" @click="showScanner = true">สแกน QR Code</button>
                     </div>
-                    <h5 class="fw-bold">
-                        เวลาออกรถ <span class="text-dark">9:30 น.</span>
-                    </h5>
+
+                    <h5 class="fw-bold">เวลาออกรถ <span class="text-dark">9:30 น.</span></h5>
                     <hr />
                     <div class="mt-2">
                         <p class="mb-1">เส้นทาง</p>
@@ -35,6 +32,7 @@
                         <p class="mb-0">ผู้โดยสาร : <strong>9 คน</strong></p>
                     </div>
 
+                    <!-- ปุ่มนำทาง -->
                     <div class="arrow-group">
                         <button class="arrow-btn left-btn" @click="$router.push('/drivers/cancel')">
                             <span class="arrow left"></span>
@@ -48,7 +46,6 @@
                             <span class="arrow right"></span>
                         </button>
                     </div>
-
                 </div>
             </div>
 
@@ -79,13 +76,13 @@
             <h6 class="fw-bold">ผู้โดยสารทั้งหมด 9 คน</h6>
             <div class="row text-center mt-2">
                 <div class="col-md-4">
-                    <div class="status-box success" @click="() => { modalType = 'boarded'; showModal = true }">
-                        <div class="status-header fw-bold">ขึ้นแล้ว</div>
-                        <div class="status-number fw-bold fs-1">5</div>
+                    <div class="status-box success" @click="openPassengerModal('boarded')">
+                        <div class="fw-bold">ขึ้นแล้ว</div>
+                        <div class="fw-bold fs-1">5</div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="status-box danger" @click="() => { modalType = 'notBoarded'; showModal = true }">
+                    <div class="status-box danger" @click="openPassengerModal('notBoarded')">
                         <div class="fw-bold">ยังไม่ขึ้น</div>
                         <div class="fw-bold fs-1">3</div>
                     </div>
@@ -131,12 +128,14 @@
                     <button class="btn btn-danger px-4" @click="showModal = false">ยกเลิก</button>
                 </div>
             </div>
+
             <div v-else>
                 <h5 class="fw-bold mb-3">{{ modalType === 'boarded' ? 'ขึ้นแล้ว' : 'ยังไม่ขึ้น' }}</h5>
                 <ul class="passenger-list">
                     <li v-for="(p, index) in modalType === 'boarded' ? boardedPassengers : notBoardedPassengers"
                         :key="index">
-                        {{ p }}</li>
+                        {{ p }}
+                    </li>
                 </ul>
                 <button class="btn btn-danger mt-3 px-5" @click="showModal = false">ปิด</button>
             </div>
@@ -145,64 +144,68 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { QrcodeStream } from 'vue-qrcode-reader'
+import { ref } from "vue";
+import { QrcodeStream } from "vue-qrcode-reader";
 
-const showScanner = ref(false)
-const decoded = ref('')
-const error = ref('')
+const showScanner = ref(false);
+const decoded = ref("");
+const error = ref("");
 
-const showModal = ref(false)
-const modalType = ref('')
+const showModal = ref(false);
+const modalType = ref("");
 
+// ฟังก์ชัน QR
 function onDecode(result) {
-    decoded.value = result
-    showScanner.value = false
+    decoded.value = result;
+    showScanner.value = false;
 }
-
 function onInit(promise) {
     promise.catch(err => {
-        if (err.name === 'NotAllowedError') error.value = '❌ ไม่ได้รับสิทธิ์การเข้าถึงกล้อง'
-        else if (err.name === 'NotFoundError') error.value = '❌ ไม่มีกล้อง'
-        else error.value = 'เกิดข้อผิดพลาด: ' + err.message
-    })
+        if (err.name === "NotAllowedError") error.value = "❌ ไม่ได้รับสิทธิ์การเข้าถึงกล้อง";
+        else if (err.name === "NotFoundError") error.value = "❌ ไม่มีกล้อง";
+        else error.value = "เกิดข้อผิดพลาด: " + err.message;
+    });
 }
 
+// ข้อมูลรายงาน
 const report = {
-    route: 'มหาวิทยาลัยเทคโนโลยีมหานคร ➝ มหาวิทยาลัยเทคโนโลยีมหานคร',
-    time: '9:30 น. - 17:30 น.',
+    route: "มหาวิทยาลัยเทคโนโลยีมหานคร ➝ มหาวิทยาลัยเทคโนโลยีมหานคร",
+    time: "9:30 น. - 17:30 น.",
     boarded: 5,
     notCome: 3,
-    license: 'สย 2591'
+    license: "สย 2591"
+};
+
+// รายชื่อผู้โดยสาร
+const boardedPassengers = ["นาย ก ขึ้นแล้ว", "นาย ข ขึ้นแล้ว", "นาย ค ขึ้นแล้ว", "นาย ง ขึ้นแล้ว", "นาย จ ขึ้นแล้ว"];
+const notBoardedPassengers = ["นาย ฉ ยังไม่ขึ้น", "นาย ช ยังไม่ขึ้น", "นาย ซ ยังไม่ขึ้น"];
+
+// ฟังก์ชัน modal
+function openPassengerModal(type) {
+    modalType.value = type;
+    showModal.value = true;
 }
-
-const boardedPassengers = [
-    'นาย ก ขึ้นแล้ว', 'นาย ข ขึ้นแล้ว', 'นาย ค ขึ้นแล้ว', 'นาย ง ขึ้นแล้ว', 'นาย จ ขึ้นแล้ว'
-]
-
-const notBoardedPassengers = [
-    'นาย ฉ ยังไม่ขึ้น', 'นาย ช ยังไม่ขึ้น', 'นาย ซ ยังไม่ขึ้น'
-]
-
-const confirmReport = () => {
-    alert('รายงานถูกส่งเรียบร้อยแล้ว!')
-    showModal.value = false
+function confirmReport() {
+    alert("รายงานถูกส่งเรียบร้อยแล้ว!");
+    showModal.value = false;
 }
 </script>
 
 <style scoped>
+/* Card */
 .card {
     border: 1px solid #ddd;
     border-radius: 8px;
     background: #fff;
-    height: 100%
+    height: 100%;
 }
 
+/* Timeline */
 .timeline {
     list-style: none;
     padding-left: 0;
     margin: 0;
-    position: relative
+    position: relative;
 }
 
 .timeline::before {
@@ -212,8 +215,8 @@ const confirmReport = () => {
     top: 1px;
     bottom: 0;
     width: 2px;
-    height: calc(7*42px);
-    background: #ccc
+    height: calc(7 * 42px);
+    background: #ccc;
 }
 
 .timeline li {
@@ -221,7 +224,7 @@ const confirmReport = () => {
     padding-left: 30px;
     margin-bottom: 20px;
     color: #666;
-    font-size: 17px
+    font-size: 17px;
 }
 
 .timeline li .dot {
@@ -232,64 +235,58 @@ const confirmReport = () => {
     height: 16px;
     border-radius: 50%;
     background: #ccc;
-    z-index: 1
+    z-index: 1;
 }
 
 .timeline li.active .dot {
     left: -3px;
     width: 20px;
     height: 20px;
-    background: #28a745
+    background: #28a745;
 }
 
 .timeline li.active span.fw-bold {
-    color: #000
+    color: #000;
 }
 
+/* Status Box */
 .status-box {
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 300px;
     padding: 50px;
-    margin: 20px;
+    margin: 20px auto;
     cursor: pointer;
-    transition: all .2s ease
+    transition: all 0.2s ease;
 }
 
 .status-box:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, .1)
-}
-
-.status-header {
-    text-align: center;
-    margin-bottom: 0
-}
-
-.status-number {
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .status-box.success {
     border-color: #28a745;
-    color: #28a745
+    color: #28a745;
 }
 
 .status-box.danger {
     border-color: #dc3545;
-    color: #dc3545
+    color: #dc3545;
 }
 
 .status-box.neutral {
     border-color: #555;
-    color: #555
+    color: #555;
 }
 
-/* Arrow */
+/* Arrow Buttons */
+.arrow-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .arrow-btn {
     width: 50px;
     height: 45px;
@@ -299,8 +296,7 @@ const confirmReport = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, .1)
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .arrow {
@@ -308,45 +304,37 @@ const confirmReport = () => {
     width: 12px;
     height: 12px;
     border-top: 2px solid #000;
-    border-right: 2px solid #000
+    border-right: 2px solid #000;
 }
 
 .arrow.left {
     transform: rotate(-135deg);
-    margin-left: 3px
 }
 
 .arrow.right {
     transform: rotate(45deg);
-    margin-right: 3px
-}
-
-.arrow-group {
-    display: flex;
-    justify-content: center;
-    align-items: center
 }
 
 .left-btn {
-    margin-right: 60px
+    margin-right: 60px;
 }
 
 .right-btn {
-    margin-left: 60px
+    margin-left: 60px;
 }
 
-/* Modal */
+/* Custom Modal */
 .custom-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, .4);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1050
+    z-index: 1050;
 }
 
 .custom-modal-content {
@@ -357,44 +345,42 @@ const confirmReport = () => {
     max-height: 80vh;
     overflow-y: auto;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .3)
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .report-content {
     background: #f8f9fa;
     padding: 20px;
     border-radius: 8px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
 }
 
 .passenger-list {
-    text-align: left;
     list-style: none;
-    padding: 0
+    padding: 0;
+    text-align: left;
 }
 
 .passenger-list li {
     padding: 8px 0;
-    border-bottom: 1px solid #eee
+    border-bottom: 1px solid #eee;
 }
 
 .passenger-list li:last-child {
-    border-bottom: none
+    border-bottom: none;
 }
 
-/* QR Scanner */
+/* QR Scanner Backdrop */
 .modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, .5);
-    z-index: 1040
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
     border-radius: 12px;
-    z-index: 1050
 }
 </style>

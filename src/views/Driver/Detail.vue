@@ -1,5 +1,5 @@
 <template>
-    <!-- Breadcrumb: Bootstrap -->
+    <!-- Breadcrumb -->
     <nav class="bg-light" aria-label="breadcrumb">
         <div class="container py-2 d-flex align-items-center gap-2">
             <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.back()">←</button>
@@ -10,9 +10,7 @@
         </div>
     </nav>
 
-
     <div class="container mt-3">
-        <!-- แถวบน -->
         <div class="row g-3">
             <!-- กล่องรายละเอียดงาน -->
             <div class="col-md-6">
@@ -25,21 +23,17 @@
                         เวลาออกรถ <span class="text-dark">9:30 น.</span>
                     </h5>
                     <hr />
-                    <div class="mt-2">
+                    <div>
                         <p class="mb-1">เส้นทาง</p>
-                        <p class="mb-0">
-                            <strong>จาก :</strong> มหาวิทยาลัยเทคโนโลยีมหานคร
-                        </p>
+                        <p class="mb-0"><strong>จาก :</strong> มหาวิทยาลัยเทคโนโลยีมหานคร</p>
                         <p class="mb-0">⬇</p>
-                        <p class="mb-0">
-                            <strong>ถึง :</strong> มหาวิทยาลัยเทคโนโลยีมหานคร
-                        </p>
+                        <p class="mb-0"><strong>ถึง :</strong> มหาวิทยาลัยเทคโนโลยีมหานคร</p>
                         <p class="mb-0">รถทะเบียน : <strong>สย 2591</strong></p>
                         <p class="mb-0">ผู้โดยสาร : <strong>9 คน</strong></p>
                     </div>
-
                     <div class="mt-3 text-center">
-                        <button class="btn btn-dark px-5 py-2" @click="$router.push('/drivers/success')">เริ่มงาน</button>
+                        <button class="btn btn-dark px-5 py-2"
+                            @click="$router.push('/drivers/success')">เริ่มงาน</button>
                     </div>
                 </div>
             </div>
@@ -64,16 +58,16 @@
                     </ul>
                 </div>
             </div>
-        </div> <!-- ปิด row แถวบน -->
+        </div>
 
         <!-- กล่องสถานะผู้โดยสาร -->
-        <div class="card mt-3 p-3 ">
+        <div class="card mt-3 p-3">
             <h6 class="fw-bold">ผู้โดยสารทั้งหมด 9 คน</h6>
             <div class="row text-center mt-2">
                 <div class="col-md-4">
                     <div class="status-box success">
-                        <div class="status-header fw-bold">ขึ้นแล้ว</div>
-                        <div class="status-number fw-bold fs-1">5</div>
+                        <div class="fw-bold">ขึ้นแล้ว</div>
+                        <div class="fw-bold fs-1">5</div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -85,8 +79,7 @@
                 <div class="col-md-4">
                     <div class="status-box neutral">
                         <div class="fw-bold">ว่าง</div>
-                        <div class="fw-bold fs-1">1
-                        </div>
+                        <div class="fw-bold fs-1">1</div>
                     </div>
                 </div>
             </div>
@@ -95,7 +88,7 @@
 </template>
 
 <script setup>
-// สามารถใช้ props หรือดึงข้อมูลจาก API ได้
+// ถ้ามี API จริงค่อย import/props มาใช้
 </script>
 
 <style scoped>
@@ -104,12 +97,12 @@
     border-radius: 8px;
     background: #fff;
     height: 100%;
-    /* คงไว้ตามที่คุณบอก */
 }
 
+/* Timeline */
 .timeline {
     list-style: none;
-    padding-left: 0px;
+    padding: 0;
     margin: 0;
     position: relative;
 }
@@ -118,7 +111,6 @@
     content: "";
     position: absolute;
     left: 6px;
-    /* ให้ตรงกลาง dot */
     top: 1px;
     bottom: 0;
     width: 2px;
@@ -130,8 +122,8 @@
     position: relative;
     padding-left: 30px;
     margin-bottom: 20px;
-    color: #666;
     font-size: 17px;
+    color: #666;
 }
 
 .timeline li .dot {
@@ -142,7 +134,6 @@
     height: 16px;
     border-radius: 50%;
     background: #ccc;
-    z-index: 1;
 }
 
 .timeline li.active .dot {
@@ -150,34 +141,20 @@
     width: 20px;
     height: 20px;
     background: #28a745;
-    /* จุดสีเขียว */
 }
 
 .timeline li.active span.fw-bold {
     color: #000;
 }
 
+/* Status Box */
 .status-box {
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: 300px;
-    padding: 50px;
-    margin: 20px;
+    padding: 30px;
+    margin: 10px auto;
+    max-width: 250px;
 }
-
-.status-header {
-    text-align: center;
-    margin-bottom: 0px;
-}
-
-.status-number {
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 
 .status-box.success {
     border-color: #28a745;
@@ -193,7 +170,4 @@
     border-color: #555;
     color: #555;
 }
-
-
-
 </style>
