@@ -42,22 +42,23 @@
 
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { http } from '../../lib/http'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useToast } from 'vue-toastification'
+import { fetchMe } from '../../composables/useSession'
 
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
 const isSubmitting = ref(false)
 const router = useRouter()
+const route = useRoute()
 const toast = useToast()
 
 const onSubmit = async () => {
     isSubmitting.value = true
-
 
     try {
         const res = await http.post('/auth/users/login', {
@@ -65,14 +66,18 @@ const onSubmit = async () => {
             password: password.value
         })
 
+        // Fetch session to update in-memory state
+        await fetchMe()
+
         toast.success(res?.data?.message || 'เข้าสู่ระบบสำเร็จ')
-        router.push('/')
-    } catch (err) {
+        const redirect = (route.query?.redirect as string) || '/'
+        router.replace(redirect)
+    } catch (e) {
+        const err = e as any
         const msg = err?.response?.data?.message || 'ไม่สามารถเข้าสู่ระบบได้ กรุณาลองใหม่อีกครั้ง'
         toast.error(msg)
     } finally {
         isSubmitting.value = false
     }
-
 }
 </script>
