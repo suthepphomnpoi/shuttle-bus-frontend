@@ -100,23 +100,25 @@ const routes: RouteRecordRaw[] = [
     path: "/admin/trip-manage",
     name: "trip-manage",
     component: TripManage,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: false },
   },
   {
     path: "/admin/department-manage",
     name: "department-manage",
     component: DepartmentManage,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: false },
   },
   {
     path: "/admin/assignment",
     name: "assignment",
     component: Assignment,
+    meta: { requiresAuth: false },
   },
     {
     path: "/admin/permission-management",
     name: "permission-management",
     component: Permissions,
+    meta: { requiresAuth: false },
   },
 ];
 
