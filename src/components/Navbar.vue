@@ -60,6 +60,12 @@
               <li>
                 <RouterLink class="dropdown-item" to="/admin/BusTripManage">BusTripManage</RouterLink>
               </li>
+              <li>
+                <RouterLink class="dropdown-item" to="/admin/trip-manage">tripmanage</RouterLink>
+              </li>
+              <li>
+                <RouterLink class="dropdown-item" to="/admin/department-manage">department</RouterLink>
+              </li>
             </ul>
           </li>
         </ul>

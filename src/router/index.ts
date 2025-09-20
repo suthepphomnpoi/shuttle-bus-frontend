@@ -11,6 +11,9 @@ import BustripManage from "../views/BackOffice/BustripManage.vue";
 import LineWay from "../views/BackOffice/LineWay.vue";
 import Login from "../views/UserAuth/Login.vue";
 import SearchTrip from "../views/Reserve/SearchTrip.vue";
+import TripManage from "../views/BackOffice/TripManage.vue";
+import DepartmentManage from "../views/BackOffice/DepartmentManage.vue";
+
 
 const routes = [
   {
@@ -72,6 +75,16 @@ const routes = [
     path: "/admin/lineway",
     name: "LineWay",
     component: LineWay,
+  },
+    {
+    path: "/admin/trip-manage",
+    name: "trip-manage",
+    component: TripManage,
+  },
+      {
+    path: "/admin/department-manage",
+    name: "department-manage",
+    component: DepartmentManage,
   },
 ];
 
