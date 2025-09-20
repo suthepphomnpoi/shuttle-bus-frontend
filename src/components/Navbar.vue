@@ -46,7 +46,15 @@
               <li>
                 <RouterLink class="dropdown-item" to="/admin/user-managements">User Management</RouterLink>
               </li>
-
+              <li>
+                <RouterLink class="dropdown-item" to="/admin/VehicleTypes">VehicleTypes</RouterLink>
+              </li>
+              <li>
+                <RouterLink class="dropdown-item" to="/admin/EmployeeManage">EmployeeManage</RouterLink>
+              </li>
+              <li>
+                <RouterLink class="dropdown-item" to="/admin/BusTripManage">BusTripManage</RouterLink>
+              </li>
             </ul>
           </li>
         </ul>

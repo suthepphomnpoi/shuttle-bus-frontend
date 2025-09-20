@@ -6,6 +6,10 @@ import Cancel from "../views/Driver/Cancel.vue";
 import Confirm from "../views/Driver/Confirm.vue";
 import Jobboard from "../views/Driver/JobBoard.vue";
 import UserManagement from "../views/BackOffice/UserManagement.vue";
+import VehicleTypes from "../views/BackOffice/VehicleTypes.vue";
+import EmployeeManage from "../views/BackOffice/EmployeeManage.vue";
+import BustripManage from "../views/BackOffice/BustripManage.vue";
+import LineWay from "../views/BackOffice/LineWay.vue";
 
 const routes = [
   {
@@ -43,6 +47,26 @@ const routes = [
     name: "user-managements",
     component: UserManagement,
   },
+  {
+    path: "/admin/VehicleTypes",
+    name: "VehicleTypes",
+    component: VehicleTypes,
+  },
+    {
+    path: "/admin/EmployeeManage",
+    name: "EmployeeManage",
+    component: EmployeeManage,
+  },
+  {
+    path: "/admin/BusTripManage",
+    name: "BusTripManage",
+    component: BustripManage,
+  },
+  {
+  path: "/admin/lineway",
+  name: "LineWay",
+  component: LineWay,
+}
 ];
 
 const router = createRouter({
