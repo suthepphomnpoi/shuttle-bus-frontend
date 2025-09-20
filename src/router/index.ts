@@ -5,6 +5,7 @@ import Success from "../views/Driver/Success.vue";
 import Cancel from "../views/Driver/Cancel.vue";
 import Confirm from "../views/Driver/Confirm.vue";
 import Jobboard from "../views/Driver/JobBoard.vue";
+import Record from "../views/Driver/Record.vue";
 import UserManagement from "../views/BackOffice/UserManagement.vue";
 import VehicleTypes from "../views/BackOffice/VehicleTypes.vue";
 import EmployeeManage from "../views/BackOffice/EmployeeManage.vue";
@@ -56,6 +57,12 @@ const routes: RouteRecordRaw[] = [
     path: "/drivers/jobboard",
     name: "jobboard",
     component: Jobboard,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/drivers/record",
+    name: "record",
+    component: Record,
     meta: { requiresAuth: true },
   },
   {
